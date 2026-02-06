@@ -5,3 +5,6 @@
 *.user
 *.cache
 *.dbmdl
+sujet.txt
+/Workshop_Memory/bin
+/Workshop_Memory/obj
