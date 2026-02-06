@@ -34,7 +34,7 @@ namespace Workshop_Memory
 
             for (int i = 0; i < threads.Length; i++)
             {
-                int j = i; // capture the loop value for the closure
+                int j = i; // capture loop value for the closure
                 threads[j] = new Thread(() => d(j));
             }
 
@@ -49,10 +49,20 @@ namespace Workshop_Memory
             }
         }
 
+        private static void RunExercise2b()
+        {
+            Func<int, int> square = x => x * x;
+            int value = 7;
+            int result = square(value);
+
+            Console.WriteLine($"Square of {value} is {result}");
+        }
+
         static void Main(string[] args)
         {
             RunExercise1();
             RunExercise2a();
+            RunExercise2b();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
