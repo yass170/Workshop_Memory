@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Workshop_Memory
@@ -112,6 +113,65 @@ namespace Workshop_Memory
             multi();
         }
 
+        private static void AllocateLargeArrayOnStack(int size)
+        {
+            try // Stack
+            {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                Span<int> largeArray = size == 0 ? Span<int>.Empty : stackalloc int[size];
+
+                for (int j = 0; j < 2000; j++)
+                {
+                    largeArray[0] = 0;
+
+                    for (int i = 1; i < largeArray.Length; i++)
+                    {
+                        largeArray[i] = largeArray[i - 1];
+                    }
+                }
+
+                stopwatch.Stop();
+                Console.WriteLine($"stack : {stopwatch.ElapsedMilliseconds} ms");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"stack allocation not possible: {ex.Message}");
+            }
+        }
+
+        private static void AllocateLargeArrayOnHeap(int size)
+        {
+            try
+            {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                int[] largeArray = new int[size];
+
+                for (int j = 0; j < 2000; j++)
+                {
+                    largeArray[0] = 0;
+
+                    for (int i = 1; i < largeArray.Length; i++)
+                    {
+                        largeArray[i] = largeArray[i - 1];
+                    }
+                }
+
+                stopwatch.Stop();
+                Console.WriteLine($"Heap : {stopwatch.ElapsedMilliseconds} ms");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"heap allocation not possible: {ex.Message}");
+            }
+        }
+
+        private static void RunExercise5()
+        {
+            const int largeSize = 300000;
+            AllocateLargeArrayOnHeap(largeSize);
+            AllocateLargeArrayOnStack(largeSize);
+        }
+
         static void Main(string[] args)
         {
             RunExercise1();
@@ -119,6 +179,7 @@ namespace Workshop_Memory
             RunExercise2b();
             RunExercise3();
             RunExercise4();
+            RunExercise5();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
