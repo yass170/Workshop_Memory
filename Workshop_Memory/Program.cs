@@ -58,11 +58,18 @@ namespace Workshop_Memory
             Console.WriteLine($"Square of {value} is {result}");
         }
 
+        private static void RunExercise3()
+        {
+            var data = new { Id = 1, Label = "Memo" };
+            Console.WriteLine($"Anonymous type -> Id: {data.Id}, Label: {data.Label}");
+        }
+
         static void Main(string[] args)
         {
             RunExercise1();
             RunExercise2a();
             RunExercise2b();
+            RunExercise3();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
