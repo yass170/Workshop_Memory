@@ -64,12 +64,61 @@ namespace Workshop_Memory
             Console.WriteLine($"Anonymous type -> Id: {data.Id}, Label: {data.Label}");
         }
 
+        private delegate void SimpleDelegate();
+
+        private class A
+        {
+            public void ma()
+            {
+                Console.WriteLine("ma");
+            }
+        }
+
+        private class B
+        {
+            public void mb()
+            {
+                Console.WriteLine("mb");
+            }
+        }
+
+        private static void RunExercise4()
+        {
+            A a = new A();
+            B b = new B();
+
+            SimpleDelegate simple = a.ma;
+
+            SimpleDelegate[] delegates = new SimpleDelegate[2];
+            delegates[0] = a.ma;
+            delegates[1] = b.mb;
+
+            SimpleDelegate multi = a.ma;
+            multi += b.mb;
+
+            a.ma();
+            b.mb();
+
+            simple();
+
+            for (int i = 0; i < delegates.Length; i++)
+            {
+                delegates[i]();
+            }
+
+            multi();
+
+            multi -= b.mb;
+            multi();
+        }
+
         static void Main(string[] args)
         {
             RunExercise1();
             RunExercise2a();
             RunExercise2b();
             RunExercise3();
+            RunExercise4();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
