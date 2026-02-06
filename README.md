@@ -1,7 +1,7 @@
 # Workshop Memory - Exercices
 
 ## Resume global
-Cette PR regroupe les exercices 1 a 6 du sujet dans un seul programme console.
+Ce repositories regroupe les exercices 1 a 6 du sujet dans un seul programme console.
 Chaque exercice est isole dans une methode dediee (`RunExerciseX`) et le `Main` les execute sequentiellement.
 
 ## Details par exercice
