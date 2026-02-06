@@ -172,6 +172,56 @@ namespace Workshop_Memory
             AllocateLargeArrayOnStack(largeSize);
         }
 
+        private sealed class DatabaseConnection : IDisposable
+        {
+            private bool isOpen;
+
+            public DatabaseConnection()
+            {
+                Console.WriteLine("Database connection opened.");
+                isOpen = true;
+            }
+
+            public void ExecuteQuery(string query)
+            {
+                if (!isOpen)
+                {
+                    throw new InvalidOperationException("The connection is closed.");
+                }
+
+                Console.WriteLine($"Executing query: {query}");
+            }
+
+            public void Close()
+            {
+                if (isOpen)
+                {
+                    Console.WriteLine("Database connection closed.");
+                    isOpen = false;
+                }
+            }
+
+            public void Dispose()
+            {
+                Close();
+            }
+        }
+
+        private static void RunExercise6()
+        {
+            try
+            {
+                using DatabaseConnection connection = new DatabaseConnection();
+                connection.ExecuteQuery("SELECT * FROM Users");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+            Console.WriteLine("Program finished.");
+        }
+
         static void Main(string[] args)
         {
             RunExercise1();
@@ -180,6 +230,7 @@ namespace Workshop_Memory
             RunExercise3();
             RunExercise4();
             RunExercise5();
+            RunExercise6();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
