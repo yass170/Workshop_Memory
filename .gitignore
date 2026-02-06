@@ -1,0 +1,7 @@
+.vs/
+.git/*
+*.sln
+*.suo
+*.user
+*.cache
+*.dbmdl
